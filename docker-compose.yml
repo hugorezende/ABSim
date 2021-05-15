@@ -1,0 +1,78 @@
+# Use root/example as user/password credentials
+version: "3.1"
+
+services:
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - '3005:80'
+
+  backend:
+    container_name: "lattics.backend"
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - lattics
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: lattics
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: admin123
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-volume:/var/lib/mysql
+    networks:
+      - lattics
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8085:8080
+    networks:
+      - lattics
+
+  rabbitmq:
+    image: "rabbitmq:3.8-management"
+    ports:
+      - "4369:4369"
+      - "5672:5672"
+      - "25672:25672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_ERLANG_COOKIE=pR2mywvUspCjdhNv7JfLvYgaDpwfuG
+      - RABBITMQ_NODENAME=node@rabbitmq
+    volumes:
+      - "rabbitmq_data:/bitnami"
+    networks:
+      - lattics
+
+volumes:
+  rabbitmq_data:
+    driver: local
+  db-volume:
+
+networks:
+  lattics:
+    driver: bridge

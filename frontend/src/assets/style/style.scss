@@ -1,0 +1,54 @@
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+}
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+h4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+input,
+select {
+  font-family: "Rubik", sans-serif;
+  background: #2d2d2d;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  //display: block;
+  width: 100%;
+}
+
+.form-group {
+  width: 100%;
+  padding: 10px;
+  input {
+    // width: 100%;
+  }
+}
+.form-group label {
+  padding: 0 5px;
+  //display: block;
+}
+
+.t-italic {
+  font-style: italic;
+}
+
+// Tables
+
+.table-header {
+  background: rgb(14 14 14);
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.table-row {
+  padding: 5px 10px;
+}
