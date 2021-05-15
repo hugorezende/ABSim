@@ -1,16 +1,17 @@
 var amqp = require("amqplib");
+var config = require("../../config/config");
 
 const options = {
   credentials: require("amqplib").credentials.plain(
-    process.env.RABBITMQ_USER,
-    process.env.RABBITMQ_PASS
+    config.RABBITMQ_USER,
+    config.RABBITMQ_PASS
   ),
 };
 
 class MQService {
   static publishSimulation(payload) {
     var connection = amqp.connect(
-      `amqp://${process.env.RABBITMQ_HOST}`,
+      `amqp://${config.RABBITMQ_HOST}`,
       options
     );
 

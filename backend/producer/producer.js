@@ -1,8 +1,9 @@
 var amqp = require("amqplib");
 let Simulation = require("../models/Simulation");
+var config = require("../config/config");
 
-var credential_user = process.env.RABBITMQ_USER;
-var credential_pass = process.env.RABBITMQ_PASS;
+var credential_user = config.RABBITMQ_USER;
+var credential_pass = config.RABBITMQ_PASS;
 
 const options = {
   credentials: require("amqplib").credentials.plain(
@@ -12,7 +13,7 @@ const options = {
 };
 
 function createSimulation(payload) {
-  var connection = amqp.connect(`amqp://${process.env.RABBITMQ_HOST}`, options);
+  var connection = amqp.connect(`amqp://${config.RABBITMQ_HOST}`, options);
   var queue = "simulationTasks";
   return connection.then(function (connection) {
     return connection

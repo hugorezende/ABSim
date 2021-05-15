@@ -95,14 +95,14 @@ const CreateSimulationPage: React.FunctionComponent<ICreateSimulationPageProps> 
 
   const history = useHistory();
   const createNewSimulation = (data: any) => {
-    console.log(data);
-    // SimulationsService.create(data).then((res) => {
-    //   if (res.success) {
-    //     history.push("/simulation");
-    //   } else {
-    //     message.error("Something wrong has occured");
-    //   }
-    // });
+    //console.log(data);
+    SimulationsService.create(data).then((res) => {
+      if (res.success) {
+        history.push("/simulation");
+      } else {
+        message.error("Something wrong has occured");
+      }
+    });
   };
   const createSubstrate = (substrate: SubstrateModel) => {
     setAvailableSubstrates([...availableSubstrates, substrate]);
